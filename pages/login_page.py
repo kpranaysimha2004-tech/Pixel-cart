@@ -1,7 +1,8 @@
 from selenium.webdriver.common.by import By
+from pages.base_page import BasePage
 
 
-class LoginPage:
+class LoginPage(BasePage):
 
     login_link = (By.ID, "login2")
     username_box = (By.ID, "loginusername")
@@ -10,7 +11,10 @@ class LoginPage:
     user_name = (By.ID, "nameofuser")
 
     def __init__(self, driver):
-        self.driver = driver
+        super().__init__(driver)
+
+    def open_login_page(self):
+        self.open_url()
 
     def click_login_link(self):
         self.driver.find_element(*self.login_link).click()
