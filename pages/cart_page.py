@@ -1,7 +1,8 @@
 from selenium.webdriver.common.by import By
+from pages.base_page import BasePage
 
 
-class CartPage:
+class CartPage(BasePage):
 
     first_product = (By.XPATH, "//a[contains(text(),'Samsung galaxy s6')]")
     add_to_cart = (By.XPATH, "//a[text()='Add to cart']")
@@ -9,7 +10,10 @@ class CartPage:
     delete_button = (By.XPATH, "//a[text()='Delete']")
 
     def __init__(self, driver):
-        self.driver = driver
+        super().__init__(driver)
+
+    def open_cart_page(self):
+        self.open_url()
 
     def select_product(self):
         self.driver.find_element(*self.first_product).click()
