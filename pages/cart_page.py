@@ -20,16 +20,31 @@ class CartPage(BasePage):
         self.open_url()
 
     def select_product(self):
-        self.wait.until(EC.element_to_be_clickable(self.first_product)).click()
+        self.wait.until(
+            EC.element_to_be_clickable(self.first_product)
+        ).click()
 
     def click_add_to_cart(self):
-        self.wait.until(EC.element_to_be_clickable(self.add_to_cart)).click()
+        self.wait.until(
+            EC.element_to_be_clickable(self.add_to_cart)
+        ).click()
+
+    def accept_alert(self):
+        self.wait.until(EC.alert_is_present())
+        alert = self.driver.switch_to.alert
+        alert.accept()
 
     def open_cart(self):
-        self.wait.until(EC.element_to_be_clickable(self.cart_button)).click()
+        self.wait.until(
+            EC.element_to_be_clickable(self.cart_button)
+        ).click()
 
     def remove_product(self):
-        self.wait.until(EC.element_to_be_clickable(self.delete_button)).click()
+        self.wait.until(
+            EC.element_to_be_clickable(self.delete_button)
+        ).click()
 
     def verify_product_in_cart(self):
-        return self.wait.until(EC.visibility_of_element_located(self.product_in_cart)).is_displayed()
+        return self.wait.until(
+            EC.visibility_of_element_located(self.product_in_cart)
+        ).is_displayed()
