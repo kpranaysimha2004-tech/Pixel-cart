@@ -65,6 +65,12 @@ def add_multiple_products(driver):
         EC.element_to_be_clickable((By.XPATH, "//a[text()='Nokia lumia 1520']"))
     ).click()
 
+    # Re-create page object after navigation to avoid any stale references
+    page = CartPage(driver)
+    # Ensure Add to cart is clickable on the Nokia page before clicking
+    wait(driver).until(
+        EC.element_to_be_clickable((By.XPATH, "//a[text()='Add to cart']"))
+    )
     page.click_add_to_cart()
     accept_alert(driver)
 
