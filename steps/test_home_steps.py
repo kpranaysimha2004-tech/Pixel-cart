@@ -3,6 +3,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 
 from conftest import wait, accept_alert
+from .test_common_steps import *
 
 
 scenarios("../features/aboutus.feature")
@@ -37,13 +38,18 @@ def verify_about_popup(driver):
 @when("user clicks on Close button")
 def close_popup(driver):
     wait(driver).until(
-        EC.element_to_be_clickable((By.XPATH, "//button[text()='Close']"))
+        EC.visibility_of_element_located((By.ID, "videoModal"))
+    )
+    wait(driver).until(
+        EC.element_to_be_clickable((By.XPATH, "//div[@id='videoModal']//button[text()='Close']"))
     ).click()
 
 
 @then("popup should be closed successfully")
-def verify_popup_closed():
-    assert True
+def verify_popup_closed(driver):
+    assert wait(driver).until(
+        EC.invisibility_of_element_located((By.ID, "videoModal"))
+    )
 
 
 @when("user clicks on Contact link")

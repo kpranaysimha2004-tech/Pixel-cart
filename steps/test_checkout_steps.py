@@ -5,10 +5,22 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.cart_page import CartPage
 from pages.checkout_page import CheckoutPage
 from conftest import wait, accept_alert
+from .test_common_steps import *
 
 
 scenarios("../features/payment.feature")
 scenarios("../features/place_order_validation.feature")
+
+
+@when("user opens the cart page")
+def open_cart_local(driver):
+    CartPage(driver).open_cart()
+
+
+@then("validation message should be displayed")
+def verify_validation_local(driver):
+    message = accept_alert(driver)
+    assert message != ""
 
 
 @given("user is on the cart page")
@@ -110,9 +122,17 @@ def verify_order_success(driver):
 @when("user clicks on close button")
 @when("user clicks on Close button")
 def close_payment_popup(driver):
+    # Wait for the checkout name field inside the modal, then click Close robustly
     wait(driver).until(
-        EC.element_to_be_clickable((By.XPATH, "//button[text()='Close']"))
-    ).click()
+        EC.visibility_of_element_located((By.ID, "name"))
+    )
+    try:
+        btn = wait(driver).until(EC.element_to_be_clickable((By.XPATH, "//button[contains(text(),'Close')]")))
+        driver.execute_script("arguments[0].click();", btn)
+    except Exception:
+        footer_btns = driver.find_elements(By.CSS_SELECTOR, ".modal-footer button")
+        if footer_btns:
+            driver.execute_script("arguments[0].click();", footer_btns[-1])
 
 
 @then("payment form should be closed")

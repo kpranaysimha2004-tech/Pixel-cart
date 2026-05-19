@@ -5,6 +5,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.login_page import LoginPage
 from pages.signup_page import SignupPage
 from conftest import wait, accept_alert
+from .test_common_steps import *
 
 
 scenarios("../features/login.feature")
@@ -19,9 +20,14 @@ def click_login_button(driver):
 
 @when("user enters valid username and password")
 def enter_valid_login(driver):
+    if not getattr(driver, "test_username", None):
+        from .test_common_steps import register_test_user
+
+        register_test_user(driver)
+
     page = LoginPage(driver)
-    page.enter_username("testuser")
-    page.enter_password("test123")
+    page.enter_username(driver.test_username)
+    page.enter_password(driver.test_password)
 
 
 @when("user enters invalid username and password")
@@ -79,6 +85,14 @@ def open_signup_modal(driver):
 
 @when(parsers.parse('the user enters a unique "{username}" and "{password}"'))
 def enter_signup_details(driver, username, password):
+    if username.startswith("<") and password.startswith("<"):
+        from .test_common_steps import generate_random_credentials
+
+        username, password = generate_random_credentials()
+
+    driver.test_username = username
+    driver.test_password = password
+
     page = SignupPage(driver)
     page.enter_username(username)
     page.enter_password(password)

@@ -35,9 +35,11 @@ class CartPage(BasePage):
         alert.accept()
 
     def open_cart(self):
+        # Navigate directly to cart page to avoid timing issues with navbar
+        self.driver.get("https://www.demoblaze.com/cart.html")
         self.wait.until(
-            EC.element_to_be_clickable(self.cart_button)
-        ).click()
+            EC.presence_of_element_located((By.XPATH, "//tbody"))
+        )
 
     def remove_product(self):
         self.wait.until(

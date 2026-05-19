@@ -4,6 +4,7 @@ from selenium.webdriver.support import expected_conditions as EC
 
 from pages.cart_page import CartPage
 from conftest import wait, accept_alert
+from .test_common_steps import *
 
 
 scenarios("../features/cart.feature")
@@ -70,6 +71,8 @@ def add_multiple_products(driver):
 
 @then("all selected products should be displayed")
 def verify_multiple_products(driver):
+    # Ensure cart page is open and rows are loaded
+    CartPage(driver).open_cart()
     rows = wait(driver).until(
         EC.presence_of_all_elements_located((By.XPATH, "//tbody/tr"))
     )
@@ -111,7 +114,11 @@ def user_added_multiple_products(driver):
 
 @then("the total price should equal the sum of the individual product prices")
 def verify_total_price(driver):
-    prices = driver.find_elements(By.XPATH, "//tbody/tr/td[3]")
+    # Ensure cart page is open
+    CartPage(driver).open_cart()
+    prices = wait(driver).until(
+        EC.presence_of_all_elements_located((By.XPATH, "//tbody/tr/td[3]"))
+    )
     total_text = wait(driver).until(
         EC.visibility_of_element_located((By.ID, "totalp"))
     ).text
