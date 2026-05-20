@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Passed Testcases Report</title>
+  <style>
+    :root { color-scheme: light; --bg:#f6f7fb; --card:#ffffff; --border:#e1e4ea; --text:#1f2937; --muted:#64748b; --accent:#2563eb; --success:#16a34a; --warning:#f59e0b; --danger:#dc2626; }
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: var(--text); }
+    .page { max-width: 1200px; margin: 0 auto; padding: 32px; }
+    header { margin-bottom: 28px; }
+    .eyebrow { text-transform: uppercase; letter-spacing: .2em; font-size: .78rem; color: var(--accent); margin-bottom: 12px; }
+    h1 { font-size: 2.5rem; margin: 0 0 12px; }
+    p.lead { color: var(--muted); margin: 0 0 24px; max-width: 720px; line-height: 1.7; }
+    .summary { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); margin-bottom: 28px; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 18px; padding: 22px; box-shadow: 0 8px 24px rgba(15, 23, 42, .06); }
+    .card strong { display: block; font-size: 1.75rem; margin-bottom: 6px; }
+    .card span { color: var(--muted); font-size: .95rem; }
+    .badge { display: inline-flex; align-items: center; gap: 8px; font-size: .9rem; padding: 8px 14px; border-radius: 999px; background: rgba(37, 99, 235, .1); color: var(--accent); margin-right: 10px; }
+    .badge.success { background: rgba(22, 163, 74, .12); color: var(--success); }
+    .badge.warning { background: rgba(245, 158, 11, .12); color: var(--warning); }
+    .badge.danger { background: rgba(220, 38, 38, .12); color: var(--danger); }
+    table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 18px; overflow: hidden; box-shadow: 0 10px 30px rgba(15, 23, 42, .08); }
+    thead { background: #eef2ff; }
+    th, td { padding: 16px 18px; text-align: left; }
+    th { font-size: .95rem; letter-spacing: .02em; text-transform: uppercase; color: #334155; border-bottom: 1px solid var(--border); }
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:nth-child(even) { background: #fbfbff; }
+    tbody td { font-size: .95rem; color: #102a43; }
+    .footer { margin-top: 28px; color: var(--muted); font-size: .9rem; }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <header>
+      <div class="eyebrow">Test Execution Summary</div>
+      <h1>Passed Testcases Report</h1>
+      <p class="lead">This report summarizes executed test cases and highlights passed results from the JUnit output, delivering a clean status overview for stakeholders.</p>
+    </header>
+
+    <div class="summary">
+      <div class="card">
+        <strong>32</strong>
+        <span>Test cases executed</span>
+      </div>
+      <div class="card">
+        <strong>32</strong>
+        <span>Total test cases in suite</span>
+      </div>
+      <div class="card">
+        <strong>32</strong>
+        <span>Passed tests included</span>
+      </div>
+      <div class="card">
+        <strong>100%</strong>
+        <span>Pass rate</span>
+      </div>
+      <div class="card">
+        <strong>0</strong>
+        <span>Failed tests</span>
+      </div>
+      <div class="card">
+        <strong>0</strong>
+        <span>Skipped tests</span>
+      </div>
+    </div>
+
+    <div class="card" style="margin-bottom: 28px;">
+      <div class="badge success">Passed</div>
+      <div class="badge warning">Skipped</div>
+      <div class="badge danger">Failed/Error</div>
+      <p style="margin: 12px 0 0; color: var(--muted);">JUnit source: <code>results.xml</code> · Generated: 2026-05-20T11:18:24</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Class</th>
+          <th>Test Name</th>
+          <th>Duration (s)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>steps.test_auth_steps</td><td>test_successful_login_with_valid_credentials</td><td>23.369</td></tr><tr><td>steps.test_auth_steps</td><td>test_login_with_invalid_credentials</td><td>7.728</td></tr><tr><td>steps.test_auth_steps</td><td>test_login_with_empty_username_and_password</td><td>5.939</td></tr><tr><td>steps.test_auth_steps</td><td>test_logout_successfully</td><td>13.848</td></tr><tr><td>steps.test_auth_steps</td><td>test_register_a_new_user_account</td><td>8.420</td></tr><tr><td>steps.test_cart_steps</td><td>test_add_product_to_cart_successfully</td><td>12.296</td></tr><tr><td>steps.test_cart_steps</td><td>test_verify_added_product_in_cart_page</td><td>12.622</td></tr><tr><td>steps.test_cart_steps</td><td>test_delete_product_from_cart</td><td>15.169</td></tr><tr><td>steps.test_cart_steps</td><td>test_add_multiple_products_to_cart</td><td>20.571</td></tr><tr><td>steps.test_cart_steps</td><td>test_remove_added_product_from_cart</td><td>16.051</td></tr><tr><td>steps.test_cart_steps</td><td>test_verify_cart_is_empty_initially</td><td>6.836</td></tr><tr><td>steps.test_cart_steps</td><td>test_verify_cart_becomes_empty_after_deleting_products</td><td>11.236</td></tr><tr><td>steps.test_cart_steps</td><td>test_validate_the_total_price_of_multiple_items</td><td>27.392</td></tr><tr><td>steps.test_checkout_steps</td><td>test_place_an_order_with_valid_payment_details</td><td>13.091</td></tr><tr><td>steps.test_checkout_steps</td><td>test_place_order_without_entering_payment_details</td><td>11.390</td></tr><tr><td>steps.test_checkout_steps</td><td>test_cancel_payment_from_order_form</td><td>21.980</td></tr><tr><td>steps.test_checkout_steps</td><td>test_try_placing_order_with_empty_details</td><td>11.435</td></tr><tr><td>steps.test_checkout_steps</td><td>test_enter_valid_order_details</td><td>11.613</td></tr><tr><td>steps.test_home_steps</td><td>test_open_about_us_video_popup</td><td>7.148</td></tr><tr><td>steps.test_home_steps</td><td>test_close_about_us_popup</td><td>6.584</td></tr><tr><td>steps.test_home_steps</td><td>test_verify_contact_form_submission</td><td>7.607</td></tr><tr><td>steps.test_home_steps</td><td>test_navigate_through_homepage_promotions</td><td>6.616</td></tr><tr><td>steps.test_product_steps</td><td>test_view_product_details</td><td>8.518</td></tr><tr><td>steps.test_product_steps</td><td>test_open_product_details_page</td><td>7.915</td></tr><tr><td>steps.test_product_steps</td><td>test_return_to_home_page_from_product_page</td><td>7.926</td></tr><tr><td>steps.test_product_steps</td><td>test_verify_phones_category_displays_phone_products</td><td>6.557</td></tr><tr><td>steps.test_product_steps</td><td>test_verify_laptops_category_displays_laptop_products</td><td>6.247</td></tr><tr><td>steps.test_product_steps</td><td>test_verify_monitors_category_displays_monitor_products</td><td>6.039</td></tr><tr><td>steps.test_product_steps</td><td>test_view_phone_products</td><td>6.179</td></tr><tr><td>steps.test_product_steps</td><td>test_view_laptop_products</td><td>6.406</td></tr><tr><td>steps.test_product_steps</td><td>test_view_monitor_products</td><td>5.914</td></tr><tr><td>steps.test_product_steps</td><td>test_open_a_product_from_category</td><td>10.903</td></tr>
+      </tbody>
+    </table>
+
+    <div class="footer">Report generated by <strong>Pixel-cart Test Reporter</strong>. Review this file in a browser for the complete passed-test summary.</div>
+  </div>
+</body>
+</html>

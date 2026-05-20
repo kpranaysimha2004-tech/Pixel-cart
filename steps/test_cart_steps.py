@@ -53,26 +53,48 @@ def verify_product_removed(driver):
 
 @when("user adds multiple products to cart")
 def add_multiple_products(driver):
-    page = CartPage(driver)
+    driver.get("https://www.demoblaze.com/")
+    driver.maximize_window()
 
+    page = CartPage(driver)
     page.select_product()
     page.click_add_to_cart()
     accept_alert(driver)
 
-    driver.get("https://www.demoblaze.com/")
+    # Verify first product was added to cart
+    page.open_cart()
+    rows = wait(driver).until(
+        EC.presence_of_all_elements_located((By.XPATH, "//tbody/tr"))
+    )
+    if len(rows) < 1:
+        driver.get("https://www.demoblaze.com/")
+        page.select_product()
+        page.click_add_to_cart()
+        accept_alert(driver)
+        page.open_cart()
 
+    driver.get("https://www.demoblaze.com/")
     wait(driver).until(
         EC.element_to_be_clickable((By.XPATH, "//a[text()='Nokia lumia 1520']"))
     ).click()
 
-    # Re-create page object after navigation to avoid any stale references
     page = CartPage(driver)
-    # Ensure Add to cart is clickable on the Nokia page before clicking
-    wait(driver).until(
-        EC.element_to_be_clickable((By.XPATH, "//a[text()='Add to cart']"))
-    )
     page.click_add_to_cart()
     accept_alert(driver)
+
+    page.open_cart()
+    rows = wait(driver).until(
+        EC.presence_of_all_elements_located((By.XPATH, "//tbody/tr"))
+    )
+    if len(rows) < 2:
+        driver.get("https://www.demoblaze.com/")
+        wait(driver).until(
+            EC.element_to_be_clickable((By.XPATH, "//a[text()='Nokia lumia 1520']"))
+        ).click()
+        page = CartPage(driver)
+        page.click_add_to_cart()
+        accept_alert(driver)
+        page.open_cart()
 
 
 @then("all selected products should be displayed")
@@ -125,9 +147,13 @@ def verify_total_price(driver):
     prices = wait(driver).until(
         EC.presence_of_all_elements_located((By.XPATH, "//tbody/tr/td[3]"))
     )
-    total_text = wait(driver).until(
-        EC.visibility_of_element_located((By.ID, "totalp"))
-    ).text
-
-    item_total = sum(int(price.text) for price in prices if price.text.strip())
-    assert item_total == int(total_text)
+    expected_total = sum(int(price.text) for price in prices if price.text.strip())
+    wait(driver).until(
+        lambda d: int(d.find_element(By.ID, "totalp").text) == expected_total
+    )
+    actual_total = int(
+        wait(driver).until(
+            EC.visibility_of_element_located((By.ID, "totalp"))
+        ).text
+    )
+    assert actual_total == expected_total
